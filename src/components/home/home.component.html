@@ -1,0 +1,23 @@
+<button mat-raised-button color="primary" (click)="getNotificationPermission()">Get notification permission</button>
+<button mat-raised-button color="primary" (click)="setTestNotification()">Test notification (should show after 10 seconds)</button>
+<button mat-raised-button color="primary" (click)="getAllTimeOuts()">Show active Timeouts</button>
+<button mat-raised-button color="primary" (click)="refreshDatabase()">Refresh database</button>
+
+
+
+
+
+
+<div class="example-container">
+  <mat-form-field class="example-full-width">
+    <input matInput placeholder="Delay time (in seconds)" [(ngModel)]="delay">
+  </mat-form-field>
+  <mat-form-field class="example-full-width">
+    <input matInput placeholder="Title" [(ngModel)]="title">
+  </mat-form-field>
+  <mat-form-field class="example-full-width">
+    <input matInput placeholder="Message" [(ngModel)]="body">
+  </mat-form-field>
+
+</div>
+<button mat-raised-button color="primary" (click)="setNotification()">Set a notification</button>
