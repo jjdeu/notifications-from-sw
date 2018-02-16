@@ -1,23 +1,36 @@
-<button mat-raised-button color="primary" (click)="getNotificationPermission()">Get notification permission</button>
-<button mat-raised-button color="primary" (click)="setTestNotification()">Test notification (should show after 10 seconds)</button>
-<button mat-raised-button color="primary" (click)="getAllTimeOuts()">Show active Timeouts</button>
-<button mat-raised-button color="primary" (click)="refreshDatabase()">Refresh database</button>
 
 
+<div class="container"
+     fxLayout
+     fxLayout.xs="column"
+     fxLayoutAlign="center"
+     fxLayoutGap="10px"
+     fxLayoutGap.xs="0">
+  <div class="item item-1" fxFlex="20%">
+    <button mat-raised-button color="primary" (click)="getNotificationPermission()">Get notification permission</button>
+    <button mat-raised-button color="primary" (click)="setTestNotification()">Test notification (should show after 10seconds)</button>
+  </div>
 
+  <div class="item item-2" fxFlex="40%">
 
+    <div class="example-container">
+      <mat-form-field class="example-full-width">
+        <input matInput placeholder="Title" [(ngModel)]="title">
+      </mat-form-field>
+      <mat-form-field class="example-full-width">
+        <input matInput placeholder="Message" [(ngModel)]="body">
+      </mat-form-field>
 
+      <mat-form-field class="example-full-width">
+        <input matInput placeholder="Trigger time" [owlDateTimeTrigger]="dt" [owlDateTime]="dt" [(ngModel)]="delay" readonly>
+        <owl-date-time #dt></owl-date-time>
+      </mat-form-field>
 
-<div class="example-container">
-  <mat-form-field class="example-full-width">
-    <input matInput placeholder="Delay time (in seconds)" [(ngModel)]="delay">
-  </mat-form-field>
-  <mat-form-field class="example-full-width">
-    <input matInput placeholder="Title" [(ngModel)]="title">
-  </mat-form-field>
-  <mat-form-field class="example-full-width">
-    <input matInput placeholder="Message" [(ngModel)]="body">
-  </mat-form-field>
+    </div>
+    <button mat-raised-button color="primary" (click)="setNotification()">Set a notification</button>
 
+  </div>
+  <div class="item item-3" fxFlex>Item 3</div>
 </div>
-<button mat-raised-button color="primary" (click)="setNotification()">Set a notification</button>
+
+

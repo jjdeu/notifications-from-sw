@@ -1,0 +1,22 @@
+<div class="container"
+     fxLayout
+     fxLayout.xs="column"
+     fxLayoutAlign="center"
+     fxLayoutGap="10px"
+     fxLayoutGap.xs="0">
+  <div class="item item-1" fxFlex="20%">
+    <button mat-raised-button color="primary" (click)="getAllTimeOuts()">Show active Timeouts</button>
+    <button mat-raised-button color="primary" (click)="refreshDatabase()">Refresh database</button>
+  </div>
+
+  <div class="item item-2" fxFlex="40%">
+
+    <div *ngFor="let item of items">
+      <h1>{{ item['data'].title }}</h1>
+    </div>
+
+  </div>
+  <div class="item item-3" fxFlex>Item 3</div>
+</div>
+
+

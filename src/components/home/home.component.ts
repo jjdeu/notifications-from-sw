@@ -22,31 +22,6 @@ export class HomeComponent implements OnInit {
 
   public initNotification(): void {
 
-    if(!('Notification' in this._window) || (this._window.navigator.userAgent.toLowerCase().indexOf('android') > -1)) {
-      console.log('only in-app notifications possible');
-    } else {
-      Notification.requestPermission(permission => {
-        if(permission === 'granted') {
-          navigator.serviceWorker.ready.then((registration) => {
-
-            setTimeout(() => new Notification('bla bla bla'), 10000);
-
-
-            /*
-
-                        setTimeout(() => registration.showNotification('Alert!', {
-                          body: 'from service worker'
-                        }), 10000);
-
-            */
-
-
-          });
-        } else {
-          console.log('only in-app notifications possible');
-        }
-      });
-    }
   }
 
   ngOnInit() {
@@ -59,6 +34,21 @@ export class HomeComponent implements OnInit {
 
   public getNotificationPermission() {
 
+    if(!('Notification' in this._window) || (this._window.navigator.userAgent.toLowerCase().indexOf('android') > -1)) {
+      console.log('only in-app notifications possible');
+    } else {
+      Notification.requestPermission(permission => {
+        if(permission === 'granted') {
+
+          // TODO: show permission has been granted
+
+        } else {
+          console.log('only in-app notifications possible');
+        }
+      });
+    }
+
+
   }
 
   public setTestNotification() {
@@ -68,7 +58,7 @@ export class HomeComponent implements OnInit {
       message: {
         title: 'test title',
         body: 'this is a test message',
-        timeout: 10000
+        time: '2018-02-13 12:30'
       },
     };
 
@@ -79,12 +69,15 @@ export class HomeComponent implements OnInit {
   }
 
   public setNotification() {
+
+    console.log(this.delay);
+
     const theData = {
       type: 'notification',
       message: {
         title: this.title,
         body: this.body,
-        timeout: this.delay
+        time: this.delay
       },
     };
 
