@@ -4,19 +4,53 @@
      fxLayoutAlign="center"
      fxLayoutGap="10px"
      fxLayoutGap.xs="0">
+
   <div class="item item-1" fxFlex="20%">
-    <button mat-raised-button color="primary" (click)="getAllTimeOuts()">Show active Timeouts</button>
     <button mat-raised-button color="primary" (click)="refreshDatabase()">Refresh database</button>
   </div>
 
   <div class="item item-2" fxFlex="40%">
 
-    <div *ngFor="let item of items">
-      <h1>{{ item['data'].title }}</h1>
+    <div class="database-container mat-elevation-z8">
+
+
+      <mat-table #table [dataSource]="dataSource">
+
+        <ng-container matColumnDef="id">
+          <mat-header-cell *matHeaderCellDef> id </mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{ element.id }} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="title">
+          <mat-header-cell *matHeaderCellDef> title </mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{ element.data.title }} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="triggerTimeUTS">
+          <mat-header-cell *matHeaderCellDef> UTS </mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{ element.triggerTimeUts }} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="trigger">
+          <mat-header-cell *matHeaderCellDef> Sec </mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{ getTriggerInSeconds(element.triggerTimeUts) }} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="status">
+          <mat-header-cell *matHeaderCellDef> Status </mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{ element.status }} </mat-cell>
+        </ng-container>
+
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+
+        <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+
+      </mat-table>
+
     </div>
 
   </div>
-  <div class="item item-3" fxFlex>Item 3</div>
+
 </div>
 
 

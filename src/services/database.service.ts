@@ -19,7 +19,7 @@ export class DatabaseService extends Dexie {
   }
 
   public getAll(): Promise<Array<object>> {
-      return this.myTable.toArray();
+      return this.myTable.reverse().toArray();
   }
 
 }

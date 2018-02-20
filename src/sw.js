@@ -16,7 +16,7 @@ self.addEventListener('activate', function (event) {
 });
 
 //
-// Define your database
+// Define the database
 //
 let db = new Dexie("notification_database");
 db.version(DATABASE_VERSION).stores({
@@ -99,7 +99,8 @@ function handleDelayedNotification(notification) {
         icon: './favicon.ico',
         data: {
           databaseKey: key
-        }
+        },
+        requireInteraction: true
       }).then(() => {
 
         updateNotificationStatus(key, 'done').then(() => {
@@ -130,10 +131,6 @@ self.addEventListener('message', function (event) {
       console.log("SW Received Notification: " + theMessage);
       handleDelayedNotification(theMessage);
       event.ports[0].postMessage("Notification was set");
-      break;
-
-    case 'requestActiveTimeOuts':
-      console.log('TODO requestActiveTimeOuts');
       break;
 
     default:

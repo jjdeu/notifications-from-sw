@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { WindowRefService } from '../../services/window-ref.service';
 import { SwMessageRefService } from '../../services/sw-message.service';
+import { MatSnackBar } from '@angular/material';
 
 @Component({
   selector: 'app-home',
@@ -9,25 +10,17 @@ import { SwMessageRefService } from '../../services/sw-message.service';
 })
 export class HomeComponent implements OnInit {
 
-  public delay: number = 10000;
+  public notificationTime: string;
   public title: string;
   public body: string;
 
   private _window: Window;
 
-  constructor(private _windowRefService: WindowRefService, private _swMessageService: SwMessageRefService) {
+  constructor(private _windowRefService: WindowRefService, private _swMessageService: SwMessageRefService, private _snackBar: MatSnackBar) {
     this._window = this._windowRefService.nativeWindow;
   }
 
-
-  public initNotification(): void {
-
-  }
-
   ngOnInit() {
-
-//    this.initNotification();
-
 
   }
 
@@ -37,14 +30,17 @@ export class HomeComponent implements OnInit {
     if(!('Notification' in this._window) || (this._window.navigator.userAgent.toLowerCase().indexOf('android') > -1)) {
       console.log('only in-app notifications possible');
     } else {
-      Notification.requestPermission(permission => {
+      Notification.requestPermission().then(permission => {
         if(permission === 'granted') {
 
-          // TODO: show permission has been granted
+          this._snackBar.open('Notification permission granted', null,{ duration: 1000 });
 
         } else {
-          console.log('only in-app notifications possible');
+          this._snackBar.open('only in-app notifications possible', null,{ duration: 1000 });
         }
+      }).catch(error => {
+        console.log(error);
+        this._snackBar.open('Problem getting the notification permission', null,{ duration: 1000 });
       });
     }
 
@@ -53,45 +49,51 @@ export class HomeComponent implements OnInit {
 
   public setTestNotification() {
 
+    let theNowDate = new Date();
+    // Increase by 10 seconds
+    theNowDate.setSeconds(theNowDate.getSeconds() + 10);
+
     const theData = {
       type: 'notification',
       message: {
         title: 'test title',
         body: 'this is a test message',
-        time: '2018-02-13 12:30'
+        time: theNowDate
       },
     };
 
     this._swMessageService.sendDataToSw(theData).then(result => {
-      console.log('sw answered: ', result);
+      console.log('SW answered ', result);
+      this._snackBar.open('Message was processed by service-worker', null,{ duration: 1000 });
     });
 
   }
 
   public setNotification() {
 
-    console.log(this.delay);
+    console.log(this.notificationTime);
 
     const theData = {
       type: 'notification',
       message: {
         title: this.title,
         body: this.body,
-        time: this.delay
+        time: this.notificationTime
       },
     };
 
     this._swMessageService.sendDataToSw(theData).then(result => {
-      console.log('sw answered: ', result);
+
+      // empty form
+      this.notificationTime = '';
+      this.title = '';
+      this.body = '';
+
+      console.log('SW answered ', result);
+      this._snackBar.open('Message was processed by and stored by service-worker', null,{ duration: 1000 });
+
     });
 
   }
-
-  public getAllTimeOuts() {
-  }
-
-  public refreshDatabase() {
-  }
-
 
 }

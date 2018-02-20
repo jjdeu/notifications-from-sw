@@ -5,7 +5,10 @@ import { RouterModule, Routes } from '@angular/router';
 import { AppComponent } from './app.component';
 import { HomeComponent } from '../components/home/home.component';
 import { WindowRefService } from '../services/window-ref.service';
-import { MatButtonModule, MatFormFieldModule, MatIconModule, MatInputModule, MatToolbarModule } from '@angular/material';
+import {
+  MatButtonModule, MatFormFieldModule, MatIconModule, MatInputModule, MatSnackBarModule, MatTableModule,
+  MatToolbarModule
+} from '@angular/material';
 import { SwMessageRefService } from '../services/sw-message.service';
 import { FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -35,6 +38,8 @@ const appRoutes: Routes = [
     MatInputModule,
     MatToolbarModule,
     MatIconModule,
+    MatSnackBarModule,
+    MatTableModule,
     OwlDateTimeModule,
     OwlNativeDateTimeModule,
     RouterModule.forRoot(
