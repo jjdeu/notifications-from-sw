@@ -54,7 +54,7 @@ export class HomeComponent implements OnInit {
     theNowDate.setSeconds(theNowDate.getSeconds() + 10);
 
     const theData = {
-      type: 'notification',
+      type: 'testNotification',
       message: {
         title: 'test title',
         body: 'this is a test message',
