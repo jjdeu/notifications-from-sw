@@ -10,10 +10,6 @@ import { MatSnackBar } from '@angular/material';
 })
 export class HomeComponent implements OnInit {
 
-  public notificationTime: string;
-  public title: string;
-  public body: string;
-
   private _window: Window;
 
   constructor(private _windowRefService: WindowRefService, private _swMessageService: SwMessageRefService, private _snackBar: MatSnackBar) {
@@ -47,51 +43,16 @@ export class HomeComponent implements OnInit {
 
   }
 
-  public setTestNotification() {
-
-    let theNowDate = new Date();
-    // Increase by 10 seconds
-    theNowDate.setSeconds(theNowDate.getSeconds() + 10);
+  public setTestNotification(seconds: number) {
 
     const theData = {
-      type: 'testNotification',
-      message: {
-        title: 'test title',
-        body: 'this is a test message',
-        time: theNowDate
-      },
+      type: 'notification',
+      delay: seconds * 1000
     };
 
     this._swMessageService.sendDataToSw(theData).then(result => {
       console.log('SW answered ', result);
       this._snackBar.open('Message was processed by service-worker', null,{ duration: 1000 });
-    });
-
-  }
-
-  public setNotification() {
-
-    console.log(this.notificationTime);
-
-    const theData = {
-      type: 'notification',
-      message: {
-        title: this.title,
-        body: this.body,
-        time: this.notificationTime
-      },
-    };
-
-    this._swMessageService.sendDataToSw(theData).then(result => {
-
-      // empty form
-      this.notificationTime = '';
-      this.title = '';
-      this.body = '';
-
-      console.log('SW answered ', result);
-      this._snackBar.open('Message was processed by and stored by service-worker', null,{ duration: 1000 });
-
     });
 
   }

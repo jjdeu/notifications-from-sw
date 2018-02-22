@@ -9,27 +9,11 @@
 
   <div class="item item-1" fxFlex="20%">
     <button mat-raised-button color="primary" (click)="getNotificationPermission()">Get notification permission</button>
-    <button mat-raised-button color="primary" (click)="setTestNotification()">Test notification (should show after 10seconds)</button>
+    <button mat-raised-button color="primary" (click)="setTestNotification(10)">Test notification (should show after 10 seconds)</button>
+    <button mat-raised-button color="primary" (click)="setTestNotification(30)">Test notification (should show after 30 seconds)</button>
+    <button mat-raised-button color="primary" (click)="setTestNotification(60)">Test notification (should show after 60 seconds) WONT SHOW WHEN BROWSER IS CLOSED</button>
   </div>
 
-  <div class="item item-2" fxFlex="40%">
-
-    <div class="form-container">
-      <mat-form-field class="example-full-width">
-        <input matInput placeholder="Title" [(ngModel)]="title">
-      </mat-form-field>
-      <mat-form-field class="example-full-width">
-        <input matInput placeholder="Message" [(ngModel)]="body">
-      </mat-form-field>
-
-      <mat-form-field class="example-full-width">
-        <input matInput placeholder="Trigger time" [owlDateTimeTrigger]="dt" [owlDateTime]="dt" [(ngModel)]="notificationTime" readonly>
-        <owl-date-time #dt></owl-date-time>
-      </mat-form-field>
-
-    </div>
-    <button mat-raised-button color="primary" (click)="setNotification()">Set a notification</button>
-  </div>
 
 </div>
 
